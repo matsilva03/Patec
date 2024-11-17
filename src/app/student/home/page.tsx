@@ -25,64 +25,66 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
+            className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 w-3/4 mx-auto"
           >
-            <List.Root gap="2" variant="plain" align="center">
-              <List.Item>
-                <List.Indicator asChild color="green.500">
-                  <LuCheckCircle />
-                </List.Indicator>
-                Cada disciplina possui uma prova com 5 questões de múltipla escolha
-              </List.Item>
-              <List.Item>
-                <List.Indicator asChild color="green.500">
-                  <LuCheckCircle />
-                </List.Indicator>
-                Cada questão possui 5 alternativas, sendo apenas uma a correta
-              </List.Item>
-              <List.Item>
-                <List.Indicator asChild color="green.500">
-                  <LuCheckCircle />
-                </List.Indicator>
-                Durante a realização da prova, o aluno selecionará uma, e somente uma alternativa por questão
-              </List.Item>
-              <List.Item>
-                <List.Indicator asChild color="green.500">
-                  <LuCheckCircle />
-                </List.Indicator>
-                Cada questão correta equivale a 2 pontos, totalizando uma nota máxima de 10 pontos por disciplina
-              </List.Item>
-              <List.Item>
-                <List.Indicator asChild color="green.500">
-                  <LuCheckCircle />
-                </List.Indicator>
-                As provas da segunda chamada são compostas por questões diferentes das provas da primeira chamada
-              </List.Item>
-              <List.Item>
-                <List.Indicator asChild color="green.500">
-                  <LuCheckCircle />
-                </List.Indicator>
-                O aluno não poderá acessar as avaliações fora das datas de realização destas
-              </List.Item>
-              <List.Item>
-                <List.Indicator asChild color="green.500">
-                  <LuCheckCircle />
-                </List.Indicator>
-                O aluno não poderá acessar as avaliações fora da instituição
-              </List.Item>
-              <List.Item>
-                <List.Indicator asChild color="green.500">
-                  <LuCheckCircle />
-                </List.Indicator>
-                O aluno pode realizar apenas uma prova por vez, sem poder interrompê-la no meio da execução
-              </List.Item>
-              <List.Item>
-                <List.Indicator asChild color="green.500">
-                  <LuCheckCircle />
-                </List.Indicator>
-                Se uma prova é interrompida no meio, o aluno perde seu progresso, tendo que realizá-la novamente
-              </List.Item>
-            </List.Root>
+            <div className="m-5">
+              <List.Root gap="2" variant="plain" align="center">
+                <List.Item>
+                  <List.Indicator asChild color="green.500">
+                    <LuCheckCircle />
+                  </List.Indicator>
+                  Cada disciplina possui uma prova com 5 questões de múltipla escolha
+                </List.Item>
+                <List.Item>
+                  <List.Indicator asChild color="green.500">
+                    <LuCheckCircle />
+                  </List.Indicator>
+                  Cada questão possui 5 alternativas, sendo apenas uma a correta
+                </List.Item>
+                <List.Item>
+                  <List.Indicator asChild color="green.500">
+                    <LuCheckCircle />
+                  </List.Indicator>
+                  Durante a realização da prova, o aluno selecionará uma, e somente uma alternativa por questão
+                </List.Item>
+                <List.Item>
+                  <List.Indicator asChild color="green.500">
+                    <LuCheckCircle />
+                  </List.Indicator>
+                  Cada questão correta equivale a 2 pontos, totalizando uma nota máxima de 10 pontos por disciplina
+                </List.Item>
+                <List.Item>
+                  <List.Indicator asChild color="green.500">
+                    <LuCheckCircle />
+                  </List.Indicator>
+                  As provas da segunda chamada são compostas por questões diferentes das provas da primeira chamada
+                </List.Item>
+                <List.Item>
+                  <List.Indicator asChild color="green.500">
+                    <LuCheckCircle />
+                  </List.Indicator>
+                  O aluno não poderá acessar as avaliações fora das datas de realização destas
+                </List.Item>
+                <List.Item>
+                  <List.Indicator asChild color="green.500">
+                    <LuCheckCircle />
+                  </List.Indicator>
+                  O aluno não poderá acessar as avaliações fora da instituição
+                </List.Item>
+                <List.Item>
+                  <List.Indicator asChild color="green.500">
+                    <LuCheckCircle />
+                  </List.Indicator>
+                  O aluno pode realizar apenas uma prova por vez, sem poder interrompê-la no meio da execução
+                </List.Item>
+                <List.Item>
+                  <List.Indicator asChild color="green.500">
+                    <LuCheckCircle />
+                  </List.Indicator>
+                  Se uma prova é interrompida no meio, o aluno perde seu progresso, tendo que realizá-la novamente
+                </List.Item>
+              </List.Root>
+            </div>
             <div className='flex justify-center mt-8'>
               {/* Botão para prova */}
               <Link href="/./student/test">

@@ -8,20 +8,18 @@ import { Button, Input } from '@chakra-ui/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import { PiStudentFill } from 'react-icons/pi'
-
-interface Student {
-  ra: string
-  name: string
-  email: string
-}
+import api from '@/config/api'
+import useStudents from '@/hooks/useStudents'
 
 export default function StudentManagement() {
+  const { students, setStudents } = useStudents()
+  /*
   const [data, setData] = useState<Student[]>([
     { ra: '105', name: 'Matheus', email: 'teste@email.com' },
     { ra: '106', name: 'João', email: 'joao@email.com' },
     { ra: '107', name: 'Maria', email: 'maria@email.com' },
-  ])
-  const [newStudent, setNewStudent] = useState<Student>({ ra: '', name: '', email: '' })
+  ])*/
+  const [newStudent, setNewStudent] = useState({ id: 0, ra: '', name: '', email: '', profile: '', password: '' })
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -31,17 +29,17 @@ export default function StudentManagement() {
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => {
     setIsModalOpen(false)
-    setNewStudent({ ra: '', name: '', email: '' })
+    setNewStudent({ id: 0, ra: '', name: '', email: '', profile: '', password: '' })
   }
 
   const openEditModal = (index: number) => {
     setEditIndex(index)
-    setNewStudent(data[index])
+    setNewStudent(students[index])
     setIsEditModalOpen(true)
   }
   const closeEditModal = () => {
     setIsEditModalOpen(false)
-    setNewStudent({ ra: '', name: '', email: '' })
+    setNewStudent({ id: 0, ra: '', name: '', email: '', profile: '', password: '' })
   }
 
   const openDeleteModal = (index: number) => {
@@ -51,30 +49,47 @@ export default function StudentManagement() {
   const closeDeleteModal = () => setIsDeleteModalOpen(false)
 
   // Funções para adicionar, editar e deletar
-  const handleAddStudent = () => {
+  const handleAddStudent = async () => {
     if (newStudent.ra && newStudent.name && newStudent.email) {
-      setData((prevData) => [...prevData, newStudent])
-      closeModal()
+      try {
+        newStudent.profile = 'student'
+        newStudent.password = newStudent.ra
+        const response = await api.post('/users', newStudent)
+        setStudents((prevStudents) => [...prevStudents, response.data])
+        closeModal()
+      } catch (error) {
+        console.error('Erro ao adicionar aluno: ', error)
+      }
     } else {
       alert('Preencha todos os campos!')
     }
   }
 
-  const handleEditStudent = () => {
+  const handleEditStudent = async () => {
     if (editIndex !== null && newStudent.ra && newStudent.name && newStudent.email) {
-      const updatedData = [...data]
-      updatedData[editIndex] = newStudent
-      setData(updatedData)
-      closeEditModal()
+      try {
+        const response = await api.patch(`/users/${students[editIndex].id}`, newStudent)
+        const updatedStudents = [...students]
+        updatedStudents[editIndex] = response.data
+        setStudents(updatedStudents)
+        closeEditModal()
+      } catch (error) {
+        console.error('Erro ao editar aluno:', error)
+      }
     } else {
       alert('Preencha todos os campos!')
     }
   }
 
-  const handleDeleteStudent = () => {
+  const handleDeleteStudent = async () => {
     if (editIndex !== null) {
-      setData((prevData) => prevData.filter((_, i) => i !== editIndex))
-      closeDeleteModal()
+      try {
+        await api.delete(`/users/${students[editIndex].id}`)
+        setStudents((prevStudents) => prevStudents.filter((_, i) => i !== editIndex))
+        closeDeleteModal()
+      } catch (error) {
+        console.error('Erro ao excluir aluno:', error)
+      }
     }
   }
 
@@ -107,7 +122,7 @@ export default function StudentManagement() {
           <span className="text-2xl">+</span> Adicionar Aluno
         </Button>
 
-        {data.length === 0 ? (
+        {students.length === 0 ? (
           <div className="flex flex-col items-center justify-center p-12 text-gray-500 bg-gray-50 rounded-xl">
             <p className="text-xl text-center">Nenhum aluno cadastrado.</p>
           </div>
@@ -121,7 +136,7 @@ export default function StudentManagement() {
             <table className="w-full border-collapse">
               <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
                 <tr>
-                  <th className="p-4 w-2/6 text-start text-lg font-semibold text-gray-700">RA</th>
+                  <th className="p-4 w-1/6 text-start text-lg font-semibold text-gray-700">RA</th>
                   <th className="p-4 w-2/6 text-start text-lg font-semibold text-gray-700">Nome</th>
                   <th className="p-4 w-2/6 text-start text-lg font-semibold text-gray-700">E-mail</th>
                   <th className="p-4 w-1/12"></th>
@@ -129,7 +144,7 @@ export default function StudentManagement() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((student, index) => (
+                {students.map((student, index) => (
                   <motion.tr
                     key={index}
                     className="hover:bg-blue-50/50 transition-colors duration-150"
@@ -137,7 +152,7 @@ export default function StudentManagement() {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.1 }}
                   >
-                    <td className="p-4 w-2/6 font-medium text-gray-700">{student.ra}</td>
+                    <td className="p-4 w-1/6 font-medium text-gray-700">{student.ra}</td>
                     <td className="p-4 w-2/6 text-gray-600">{student.name}</td>
                     <td className="p-4 w-2/6 text-gray-600">{student.email}</td>
                     <td className="p-4 w-1/12 text-center">

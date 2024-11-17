@@ -79,7 +79,6 @@ export default function SubjectManagement() {
     if (editIndex !== null) {
       try {
         await api.delete(`/subjects/${subjects[editIndex].subjectId}`)
-        console.log(subjects[editIndex].subjectId)
         setSubjects((prevSubjects) => prevSubjects.filter((_, i) => i !== editIndex))
         closeDeleteModal()
       } catch (error) {
@@ -132,7 +131,7 @@ export default function SubjectManagement() {
             <table className="w-full border-collapse">
               <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
                 <tr>
-                  <th className="p-4 w-2/6 text-start text-lg font-semibold text-gray-700">Código</th>
+                  <th className="p-4 w-1/6 text-start text-lg font-semibold text-gray-700">Código</th>
                   <th className="p-4 w-2/6 text-start text-lg font-semibold text-gray-700">Nome</th>
                   <th className="p-4 w-2/6 text-center text-lg font-semibold text-gray-700">Semestre</th>
                   <th className="p-4 w-1/12"></th>
@@ -148,7 +147,7 @@ export default function SubjectManagement() {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.1 }}
                   >
-                    <td className="p-4 w-2/6 font-medium text-gray-700">{subject.subjectId}</td>
+                    <td className="p-4 w-1/6 font-medium text-gray-700">{subject.subjectId}</td>
                     <td className="p-4 w-2/6 text-gray-600">{subject.name}</td>
                     <td className="p-4 w-2/6 text-center">
                       <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium">{subject.semester}º Semestre</span>

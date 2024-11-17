@@ -36,7 +36,7 @@ export default function Start() {
             </Link>
 
             <Link href="/coordinator/login" className="block">
-              <Button className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl py-4 px-4 text-lg flex items-center justify-center hover:shadow-lg transition-all duration-200 hover:scale-105">
+              <Button className="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-xl py-4 px-4 text-lg flex items-center justify-center hover:shadow-lg transition-all duration-200 hover:scale-105">
                 <RiAdminLine className="mr-2 h-5 w-5" />
                 Acesso do Coordenador
               </Button>

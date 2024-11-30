@@ -14,6 +14,7 @@ import { ITestDay } from '@/interfaces/testDay'
 import { ISubject } from '@/interfaces/subjects'
 import FormAnswerKeys from '@/components/FormAnswerKeys'
 
+
 export default function AnswerKeyManagement() {
   const { data: allSubjects = [] } = useQuery<ISubject[]>('allSubjects', () => api.get('/subjects').then((res) => res.data))
 
@@ -177,7 +178,7 @@ export default function AnswerKeyManagement() {
       </AnimatePresence>
 
       {/* Modal de Edição de Gabarito */}
-      <AnimatePresence>
+       <AnimatePresence>
         {isEditModalOpen && selectedTestId && (
           <Modal isOpen={isEditModalOpen} onClose={closeEditModal} title="Cadastrar/Editar Gabarito">
             <motion.div>
